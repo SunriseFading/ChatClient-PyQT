@@ -23,7 +23,6 @@ class MainWindow(QtWidgets.QMainWindow):
         MessageText = self.lineEdit2.text()
         TimeStamp = str(datetime.datetime.today())
         msg = f"{{\"UserName\": \"{UserName}\", \"MessageText\": \"{MessageText}\", \"TimeStamp\": \"{TimeStamp}\"}}"
-        # {"UserName": "RusAl", "MessageText": "Privet na sto let!!!", "TimeStamp": "2021-03-05T18:23:10.932973Z"}
         print("Отправлено сообщение: " + msg)
         url = self.ServerAdress + "/api/Messanger"
         data = json.loads(msg)  # string to json
@@ -45,8 +44,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # print(f'Other error occurred: {err}')  # Python 3.6
             return None
         else:
-            text = response.text
-            return text
+            return response.text
 
     def timerEvent(self):
         msg = self.GetMessage(self.MessageID)
@@ -55,10 +53,10 @@ class MainWindow(QtWidgets.QMainWindow):
             UserName = msg["UserName"]
             MessageText = msg["MessageText"]
             TimeStamp = msg["TimeStamp"]
-            msgtext =f"{TimeStamp} : <{UserName}> : {MessageText}"
+            msgtext = f"{TimeStamp} : <{UserName}> : {MessageText}"
             print(msgtext)
-            self.listWidget.insertItem(  self.MessageID, msgtext)
-            self.MessageID+=1
+            self.listWidget.insertItem(self.MessageID, msgtext)
+            self.MessageID += 1
             msg = self.GetMessage(self.MessageID)
 
 
